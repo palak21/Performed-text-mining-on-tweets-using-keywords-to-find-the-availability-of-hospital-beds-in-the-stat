@@ -171,10 +171,13 @@ o The firehose.endpoint is firehose.us-east-1.amazonaws.com
 (default).
  `sudo vi /etc/aws-kinesis/agent.json`
 
-\![image](https://user-images.githubusercontent.com/34096576/117735394-3663d100-b1aa-11eb-973f-0210bf9e3751.png)
+
 
 3. Start the agent manually by issuing the following command:
 `sudo service aws-kinesis-agent start`
+
+![image](https://user-images.githubusercontent.com/34096576/117735543-7e82f380-b1aa-11eb-8e0c-bcd68cc42323.png)
+
 
 Once started, the agent looks for files in the configured location and send the records to
 the Kinesis Data Firehose delivery stream. 
