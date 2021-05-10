@@ -134,3 +134,47 @@ Figure 9: Permissions – IAM role settings
 22. Review the details of the Amazon Kinesis Data Firehose delivery stream and
 choose Create Delivery Stream. 
   
+  
+Step 3: **Install and Configure the Amazon Kinesis
+Agent on the EC2 Instance**
+
+Now that you have an Amazon Kinesis Firehose delivery stream ready to ingest your
+data, you can configure the EC2 instance to send the data using the Amazon Kinesis
+Agent software. 
+
+The agent is a standalone Java software application that offers an easy
+way to collect and send data to Kinesis Data Firehose. The agent continuously monitors
+a set of files and sends new data to your delivery stream. 
+
+It also emits Amazon CloudWatch metrics to help you better
+monitor and troubleshoot the streaming process.
+
+1. To install the agent, copy and paste the following command. For more
+information, see Download and Install the Agent.
+`sudo yum install –y aws-kinesis-agent`
+2. For detailed instructions on how to configure the agent to process and send log
+data to your Amazon Kinesis Data Firehose delivery stream, see Configure and
+Start the Agent.
+
+To configure the agent for this tutorial, modify the configuration file located at
+`/etc/aws-kinesis/agent.json` using the following template.
+
+o Replace filePattern with the full-path-to-log-file that represents the path
+to your log files and a wildcard if you have multiple log files with the same
+naming convention. For example, it might look similar to:
+“/tmp/logs/access_log*”
+
+
+o Replace name-of-delivery-stream with the name of the Kinesis Data
+Firehose delivery stream you created in Step 2.
+o The firehose.endpoint is firehose.us-east-1.amazonaws.com
+(default).
+ `sudo vi /etc/aws-kinesis/agent.json`
+
+\![image](https://user-images.githubusercontent.com/34096576/117735394-3663d100-b1aa-11eb-973f-0210bf9e3751.png)
+
+3. Start the agent manually by issuing the following command:
+`sudo service aws-kinesis-agent start`
+
+Once started, the agent looks for files in the configured location and send the records to
+the Kinesis Data Firehose delivery stream. 
