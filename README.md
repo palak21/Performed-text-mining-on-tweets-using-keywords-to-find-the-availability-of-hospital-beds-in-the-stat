@@ -151,7 +151,10 @@ monitor and troubleshoot the streaming process.
 
 1. To install the agent, copy and paste the following command. For more
 information, see Download and Install the Agent.
+
+
 `sudo yum install –y aws-kinesis-agent`
+
 2. For detailed instructions on how to configure the agent to process and send log
 data to your Amazon Kinesis Data Firehose delivery stream, see Configure and
 Start the Agent.
