@@ -89,5 +89,41 @@ launched, you need to connect to it via SSH.
 
 
 STEP:3 **PUT PYTHON SCRIPT ON EC2 INSTANCE**
+Connect to EC2 instance: 
+1)ssh -i WebLogsKeypair.pem userName@DNSpublicAddress
+2)[Copy python scripts to Ec2] Optional
+scp -i WebLogsKeypair.pem  /Downloads/tweet_final_script.py
+ userName@DNSpublicAddress:/tmp/logs
+git clone https://github.com/palak21/AWS-Bigdata-/blob/main/tweeter_final__script.ipynb
 
 
+STEP:4 **Create an Amazon Kinesis Data Firehose
+Delivery Stream**
+
+To create the Amazon Kinesis Data Firehose delivery stream:
+14.Open the Amazon Kinesis console at https://console.aws.amazon.com/kinesis.
+15. In the Get Started section, choose Kinesis Data Firehose, and then choose
+Create Delivery Stream.
+16. On the Name and source screen:
+a. For Delivery stream name, enter web-log-ingestion-stream.
+b. For Choose a source, select Direct PUT or other sources.
+c. Choose Next.
+17. On the Process records screen, keep the default selections and choose Next.
+18. On the Choose a destination screen:
+a. For Destination, choose Amazon S3.
+Amazon Web Services Build a Log Analytics Solution on AWS
+14
+b. For S3 bucket, choose Create new.
+c. In the Create S3 bucket window, for S3 bucket name, specify a unique
+name. You do not need to use the name elsewhere in this tutorial. However,
+Amazon S3 bucket names are required to be globally unique.
+d. For Region, choose US East (N. Virginia).
+e. Choose Create S3 Bucket.
+19. Choose Next.
+20. On the Configure settings screen, scroll down to Permissions, and for IAM
+role, choose Create or update IAM role.
+Figure 9: Permissions – IAM role settings
+21. Choose Next.
+22. Review the details of the Amazon Kinesis Data Firehose delivery stream and
+choose Create Delivery Stream. 
+  
