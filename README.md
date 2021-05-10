@@ -86,3 +86,8 @@ The EC2 instance launches with the required dependencies already installed on th
 machine. The user data script clones Github onto the EC2 instance and the required file
 is copied into a new directory named logs in the /tmp folder. Once the EC2 instance is
 launched, you need to connect to it via SSH.
+
+
+STEP:3 **PUT PYTHON SCRIPT ON EC2 INSTANCE**
+
+
