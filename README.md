@@ -43,7 +43,7 @@ AmazonKinesisFirehoseFullAccess.
 f. Clear the search bar and type CloudWatchFull. Select the check box for
 CloudWatchFullAccess.
 g. Choose Next: Tags to add optional tags.
-h. Choose Next: Review and for Role name, type web-log-ec2-role.
+h. Choose Next: Review and for Role name, type tweet-search-role.
 i. Choose Create role.
 8. Return to the EC2 launch wizard tab (Figure 3) and next to the IAM role, click
 the refresh icon. Then, select web-log-ec2-role.
