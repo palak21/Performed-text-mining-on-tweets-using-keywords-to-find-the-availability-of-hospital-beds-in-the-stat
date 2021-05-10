@@ -32,17 +32,23 @@ Linux AMI.
 ![image](https://user-images.githubusercontent.com/34096576/117732459-c9017180-b1a4-11eb-8b23-f89ef7f6dcdd.png)
                                             Figure 2: Choose an instance type
 6. Choose Next: Configure Instance Details.
-7. Choose Create new IAM role. A new tab opens to create the role.
-8.You want to ensure that your EC2 instance has an AWS Identity and Access
+![image](https://user-images.githubusercontent.com/34096576/117732773-47f6aa00-b1a5-11eb-9c38-776979d07e82.png)
+                                           Figure 3: Configure instance details
+8. Choose Create new IAM role. A new tab opens to create the role.
+9.You want to ensure that your EC2 instance has an AWS Identity and Access
 Management (IAM) role configured with permission to write to Amazon Kinesis
 Data Firehose and Amazon CloudWatch. For more information, see IAM Roles
 for Amazon EC2.
 a. Choose Create role.
 b. For trusted entity, choose AWS service.
 c. For the use case, choose EC2.
+![image](https://user-images.githubusercontent.com/34096576/117732948-973cda80-b1a5-11eb-81cf-1e7ce01a3a1c.png)
+                                         Figure 4: Create new IAM role
 d. Choose Next: Permissions.
 e. In the search bar, type KinesisFirehose and select the check box for
 AmazonKinesisFirehoseFullAccess.
+ ![image](https://user-images.githubusercontent.com/34096576/117732989-aae84100-b1a5-11eb-9697-c3dc70c5ca92.png)
+                                   Figure 5: Add AmazonKinesisFirehoseFullAccess policy
 f. Clear the search bar and type CloudWatchFull. Select the check box for
 CloudWatchFullAccess.
 g. Choose Next: Tags to add optional tags.
