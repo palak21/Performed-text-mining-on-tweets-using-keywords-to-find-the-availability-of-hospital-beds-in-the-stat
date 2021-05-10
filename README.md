@@ -10,4 +10,8 @@ Architecture Overview:
 
 ![image](https://user-images.githubusercontent.com/34096576/117728033-b9325f00-b19d-11eb-9545-98468e4243c0.png)
 
+Prerequisites:
+(please read these carefully and do not jump ahead and start setting things up unless specifically called out)
 
+AWS Account:
+In order to work on this project you'll need an AWS Account with access to create AWS IAM, S3, Kinesis, Elastic Search and API Kibana. 
