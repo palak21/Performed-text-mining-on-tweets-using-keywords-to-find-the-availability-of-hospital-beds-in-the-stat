@@ -184,3 +184,47 @@ o The firehose.endpoint is firehose.us-east-1.amazonaws.com
 
 Once started, the agent looks for files in the configured location and send the records to
 the Kinesis Data Firehose delivery stream. 
+
+Step 4: Create an Amazon Elasticsearch Service
+Domain
+The data produced by this tutorial is stored in Amazon Elasticsearch Service for later
+visualization and analysis. To create the Amazon Elasticsearch Service domain:
+1. Open the Amazon Elasticsearch Service console at
+https://console.aws.amazon.com/es.
+2. Choose Create a new domain.
+3. On the Choose deployment type page, for Deployment type, choose a
+Development and testing. For Elasticsearch version, leave it set to the
+default value.
+4. Choose Next.
+5. On the Configure domain page, for Elasticsearch domain name, type weblog-summary.
+6. Leave all settings as their default values and choose Next.
+7. On the Configure access and security page:
+a. For Network configuration, choose Public access.
+b. Under Fine-grained access control, make sure Enable fine-grained
+access control is selected.
+c. Choose Create master user, and specify the Master username as admin
+and set a password.
+Amazon Web Services Build a Log Analytics Solution on AWS
+17
+Figure 10: Fine-grained access control options
+d. In the Access policy section, for Domain access policy, choose JSON
+defined access policy. Your JSON policy should look like the one shown in
+Figure 11.
+Note: This is not a recommended setting for production Amazon
+Elasticsearch Service domains. Make sure to terminate this Amazon
+Elasticsearch Service domain after completing the tutorial or apply a more
+restrictive policy. 
+Amazon Web Services Build a Log Analytics Solution on AWS
+18
+Figure 11: Access policy settings
+8. Leave all other default settings and choose Next.
+9. Review the details for the Amazon Elasticsearch Service domain and choose
+Confirm.
+It takes approximately 10 minutes for the Amazon Elasticsearch Service domain
+to be created. While the domain is being created, proceed with the remainder of
+this guide.
+Note: The following example shows a restrictive access policy where the
+domain is restricted to only allow traffic from a specific IP address.
+Amazon Web Services Build a Log Analytics Solution on AWS
+19
+Figure 12: Example restrictive access policy
