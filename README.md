@@ -19,6 +19,7 @@ In order to work on this project you'll need an AWS Account with access to creat
 Steps:
 Step1: Create an AWS Account
 
+
 Step2: Start an EC2 Instance
 The steps outlined in this tutorial assume that you are using an EC2 instance as the
 web server and tweet producer. (For detailed instructions, see Getting started with
@@ -28,9 +29,11 @@ Amazon EC2 Linux instances.)
 3. On the Choose an Amazon Machine Image (AMI) page, choose Amazon
 Linux AMI.
 4. On the Choose an Instance Type page, select the t2.micro instance type.
-5. Choose Next: Configure Instance Details.
-6. Choose Create new IAM role. A new tab opens to create the role.
-7.You want to ensure that your EC2 instance has an AWS Identity and Access
+![image](https://user-images.githubusercontent.com/34096576/117732459-c9017180-b1a4-11eb-8b23-f89ef7f6dcdd.png)
+                                            Figure 2: Choose an instance type
+6. Choose Next: Configure Instance Details.
+7. Choose Create new IAM role. A new tab opens to create the role.
+8.You want to ensure that your EC2 instance has an AWS Identity and Access
 Management (IAM) role configured with permission to write to Amazon Kinesis
 Data Firehose and Amazon CloudWatch. For more information, see IAM Roles
 for Amazon EC2.
