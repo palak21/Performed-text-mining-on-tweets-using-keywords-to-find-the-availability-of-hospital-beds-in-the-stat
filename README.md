@@ -18,9 +18,10 @@ In order to work on this project you'll need an AWS Account with access to creat
 
 Steps:
 Step1: Create an AWS Account
+
 Step2: Start an EC2 Instance
 The steps outlined in this tutorial assume that you are using an EC2 instance as the
-web server and log producer. (For detailed instructions, see Getting started with
+web server and tweet producer. (For detailed instructions, see Getting started with
 Amazon EC2 Linux instances.)
 1. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 2. From the console dashboard, choose Launch Instance. 
