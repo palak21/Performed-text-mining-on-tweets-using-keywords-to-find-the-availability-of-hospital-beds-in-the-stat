@@ -33,10 +33,6 @@ Amazon EC2 Linux instances.)
 ![image](https://user-images.githubusercontent.com/34096576/117732773-47f6aa00-b1a5-11eb-9c38-776979d07e82.png)
                                            Figure 3: Configure instance 
 
-You want to ensure that your EC2 instance has an AWS Identity and Access
-Management (IAM) role configured with permission to write to Amazon Kinesis
-Data Firehose and Amazon CloudWatch. For more information, see IAM Roles
-for Amazon EC2.
 
 ![image](https://user-images.githubusercontent.com/34096576/117733206-061a3380-b1a6-11eb-854b-5f08fdea3e39.png)
 
@@ -46,19 +42,6 @@ for Amazon EC2.
  ![image](https://user-images.githubusercontent.com/34096576/117732989-aae84100-b1a5-11eb-9697-c3dc70c5ca92.png)
  
                        Figure 5: Add AmazonKinesisFirehoseFullAccess policy
-
-
-In the key pair dialog box that appears, choose to create a new key pair or
-select an existing key pair that you have access to. If you choose to create a
-new key pair, choose Download Key Pair and wait for the file to download.
-Amazon Web Services Build a Log Analytics Solution on AWS
-
-
-Choose Launch Instances.
-The EC2 instance launches with the required dependencies already installed on the
-machine. The user data script clones Github onto the EC2 instance and the required file
-is copied into a new directory named logs in the /tmp folder. Once the EC2 instance is
-launched, you need to connect to it via SSH.
 
 
 STEP:3 **PUT PYTHON SCRIPT ON EC2 INSTANCE**
@@ -75,9 +58,7 @@ Delivery Stream**
 To create the Amazon Kinesis Data Firehose delivery stream:
 Open the Amazon Kinesis console at https://console.aws.amazon.com/kinesis.
 
-For Destination, choose Amazon S3.
-
-Review the details of the Amazon Kinesis Data Firehose delivery stream and
+For Destination, choose Amazon S3.Review the details of the Amazon Kinesis Data Firehose delivery stream and
 choose Create Delivery Stream. 
   
   
@@ -93,15 +74,12 @@ way to collect and send data to Kinesis Data Firehose. The agent continuously mo
 a set of files and sends new data to your delivery stream. 
 
 
-To install the agent, copy and paste the following command. For more
-information, see Download and Install the Agent.
-
-
+To install the agent, copy and paste the following command.
 `sudo yum install –y aws-kinesis-agent`
 
 
-To configure the agent for this tutorial, modify the configuration file located at
-`/etc/aws-kinesis/agent.json` using the following template.
+To configure the agent 
+`/etc/aws-kinesis/agent.json` 
 
 
 o Replace name-of-delivery-stream with the name of the Kinesis Data
@@ -119,6 +97,8 @@ Start the agent manually by issuing the following command:
 
 Once started, the agent looks for files in the configured location and send the records to
 the Kinesis Data Firehose delivery stream. 
+
+`sudo service aws-kinesis-agent stop`
 
 Step 4: Create an Amazon Elasticsearch Service
 Domain
