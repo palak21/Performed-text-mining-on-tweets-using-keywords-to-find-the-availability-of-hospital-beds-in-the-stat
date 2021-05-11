@@ -26,24 +26,6 @@ web server and tweet producer. (For detailed instructions, see Getting started w
 Amazon EC2 Linux instances.)
  -Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/
 
-![image](https://user-images.githubusercontent.com/34096576/117732459-c9017180-b1a4-11eb-8b23-f89ef7f6dcdd.png)
-                                            Figure 2: Choose an instance type
-
-
-![image](https://user-images.githubusercontent.com/34096576/117732773-47f6aa00-b1a5-11eb-9c38-776979d07e82.png)
-                                           Figure 3: Configure instance 
-
-
-![image](https://user-images.githubusercontent.com/34096576/117733206-061a3380-b1a6-11eb-854b-5f08fdea3e39.png)
-
-                              Figure 4: Create new IAM role
-
-
- ![image](https://user-images.githubusercontent.com/34096576/117732989-aae84100-b1a5-11eb-9697-c3dc70c5ca92.png)
- 
-                       Figure 5: Add AmazonKinesisFirehoseFullAccess policy
-
-
 STEP:3 **PUT PYTHON SCRIPT ON EC2 INSTANCE**
 Connect to EC2 instance: 
 
@@ -58,21 +40,10 @@ Delivery Stream**
 To create the Amazon Kinesis Data Firehose delivery stream:
 Open the Amazon Kinesis console at https://console.aws.amazon.com/kinesis.
 
-For Destination, choose Amazon S3.Review the details of the Amazon Kinesis Data Firehose delivery stream and
-choose Create Delivery Stream. 
-  
+For Destination, choose Amazon S3.
   
 Step 3: **Install and Configure the Amazon Kinesis
 Agent on the EC2 Instance**
-
-Now that you have an Amazon Kinesis Firehose delivery stream ready to ingest your
-data, you can configure the EC2 instance to send the data using the Amazon Kinesis
-Agent software. 
-
-The agent is a standalone Java software application that offers an easy
-way to collect and send data to Kinesis Data Firehose. The agent continuously monitors
-a set of files and sends new data to your delivery stream. 
-
 
 To install the agent, copy and paste the following command.
 `sudo yum install –y aws-kinesis-agent`
@@ -81,12 +52,7 @@ To install the agent, copy and paste the following command.
 To configure the agent 
 `/etc/aws-kinesis/agent.json` 
 
-
-o Replace name-of-delivery-stream with the name of the Kinesis Data
-Firehose delivery stream you created in Step 2.
-o The firehose.endpoint is firehose.us-east-1.amazonaws.com
-(default).
- `sudo vi /etc/aws-kinesis/agent.json`
+`sudo vi /etc/aws-kinesis/agent.json`
 
 
 Start the agent manually by issuing the following command:
@@ -94,39 +60,17 @@ Start the agent manually by issuing the following command:
 
 ![image](https://user-images.githubusercontent.com/34096576/117735543-7e82f380-b1aa-11eb-8e0c-bcd68cc42323.png)
 
-
-Once started, the agent looks for files in the configured location and send the records to
-the Kinesis Data Firehose delivery stream. 
-
 `sudo service aws-kinesis-agent stop`
 
-Step 4: Create an Amazon Elasticsearch Service
+Step 4: **Create an Amazon Elasticsearch Service
 Domain
-The data produced by this project is stored in Amazon Elasticsearch Service for later
-visualization and analysis. To create the Amazon Elasticsearch Service domain:
-Open the Amazon Elasticsearch Service console at
+
 https://console.aws.amazon.com/es.
 
-Create a new domain.
-
- On the Choose deployment type page, for Deployment type, choose a
-Development and testing. For Elasticsearch version, leave it set to the
-default value.
- ![image](https://user-images.githubusercontent.com/34096576/117736499-9491b380-b1ac-11eb-9d1b-8bb3023a2834.png)
-
-
-On the Configure domain page, for Elasticsearch domain name, type available-beds-summary.
-
-![image](https://user-images.githubusercontent.com/34096576/117736627-eb978880-b1ac-11eb-8a23-ec3ee9698696.png)
-
+Create a new domain
 
 Step 5: **Create a Second Amazon Kinesis Data
 Firehose Delivery Stream**
-
-Now that you have somewhere to persist the output of your Amazon Kinesis Data
-Analytics application, you need a simple way to get your data into your Amazon ES
-domain. Amazon Kinesis Data Firehose supports Amazon ES as a destination, so
-create a second Firehose delivery stream:
 
 -Open the Amazon Kinesis console at https://console.aws.amazon.com/kinesis.
  Create Delivery Stream.
@@ -135,29 +79,12 @@ create a second Firehose delivery stream:
 
 -For Elasticsearch domain, choose the domain you created in Step 4.
 
--For Index, type name.
+
 -In the S3 backup section, for Backup mode, choose Failed Records Only.
-- For S3 bucket, choose Create new.
--In the Create S3 bucket window, for S3 bucket name, specify a unique
-name. You do not need to use the name elsewhere in this tutorial. However,
-Amazon S3 bucket names are required to be globally unique.
 
-
-Add permissions for your Kinesis Data Firehose delivery stream to access your
-Elasticsearch Service cluster:
-a. Select the newly created stream and choose the
-IAM role.
-b. In the IAM window that opens, choose Add inline policy.
-c. On the Create policy page, choose Choose a service and search for
-Elasticsearch in the search box.
-Figure 16: Create policy – choose a service search box
-d. Select the check box for All Elasticsearch Service actions.
 
 Step 6: **Create an Amazon Kinesis Data Analytics
 Application**
-You are now ready to create the Amazon Kinesis Data Analytics application to
-aggregate data from your streaming web log data and store it in your Amazon ES
-domain. To create the Amazon Kinesis Data Analytics application:
 1. Open the Amazon Kinesis Analytics console at
 https://console.aws.amazon.com/kinesisanalytics.
  Create new application.
@@ -184,27 +111,7 @@ CREATE OR REPLACE PUMP "STREAM_PUMP" AS
      WINDOW W1 AS (
         PARTITION BY "name" 
         RANGE INTERVAL '24' HOUR PRECEDING);
-
-The code creates a STREAM and a PUMP:
-o A stream (in-application) is a continuously updated entity that you can
-SELECT from and INSERT into (like a TABLE).
-o A pump is an entity used to continuously ‘SELECT...FROM’ a source
-STREAM and INSERT SQL results into an output STREAM.
-Finally, an output stream can be used to send results into a destination.
-
-Under Destination, choose Kinesis Firehose delivery stream and select the
-twitter-aggregated-data stream that you created in Step 5.
-
-After approximately 5 minutes, the output of the SQL statement in your Amazon Kinesis
-Data Analytics application will be written to your Amazon ES domain. Amazon ES has
-built-in support for Kibana, a tool that allows users to explore and visualize the data
-stored in an Elasticsearch cluster. To view the output of your Amazon Kinesis Analytics
-application in Kibana: 
-
-1. Open the Amazon ES console at https://console.aws.amazon.com/es.
-2. In the Domain column, choose the Amazon ES domain called web-logsummary that you created in Step 4.
-3. On the Overview tab, click the link next to Kibana.
-4. Enter the username and password you created in Step 4.
-![image](https://user-images.githubusercontent.com/34096576/117738570-33201380-b1b1-11eb-8a81-20429f77061d.png)
+Step 7: **View the Aggregated Streaming Data**
+![image](https://user-images.githubusercontent.com/34096576/117741454-5fd72980-b1b7-11eb-898b-1551c7ebda0b.png)
 
 
