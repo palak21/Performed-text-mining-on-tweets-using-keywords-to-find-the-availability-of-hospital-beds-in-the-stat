@@ -111,6 +111,38 @@ CREATE OR REPLACE PUMP "STREAM_PUMP" AS
      WINDOW W1 AS (
         PARTITION BY "name" 
         RANGE INTERVAL '24' HOUR PRECEDING);
+        
+        
+ Twitter Analytics:
+ 
+ /**
+ * Welcome to the SQL editor
+ * =========================
+ * 
+ * The SQL code you write here will continuously transform your streaming data
+ * when your application is running.
+ *
+ * Get started by clicking "Add SQL from templates" or pull up the
+ * documentation and start writing your own custom queries.
+ */
+ CREATE OR REPLACE STREAM "DESTINATION_SQL_STREAM" (
+                         posted_at varchar(255), 
+                         User_name   varchar(255),
+                         Is_Retweet VARCHAR(8),
+                         Tweets  VARCHAR(255),
+                         Count_Tweets  Integer);
+CREATE OR REPLACE PUMP "STREAM_PUMP" AS 
+   INSERT INTO "DESTINATION_SQL_STREAM"
+     SELECT STREAM "posted_at",
+                   "user_name",
+                   "is_retweet",
+                   "tweet_text",
+                   count(*) over W1 AS Count_Tweets
+     FROM   "SOURCE_SQL_STREAM_001"
+     WINDOW W1 AS (
+        PARTITION BY "user_name" 
+        RANGE INTERVAL '1' HOUR PRECEDING);
+        
 Step 7: **View the Aggregated Streaming Data**
 ![image](https://user-images.githubusercontent.com/34096576/117741454-5fd72980-b1b7-11eb-898b-1551c7ebda0b.png)
 
